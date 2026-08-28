@@ -1,9 +1,9 @@
 package ru.yandex.practicum;
+
 import ru.yandex.practicum.UserException.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
-
 
 public class Wordle {
     private static final String userFileName = "words_ru.txt";
@@ -46,21 +46,19 @@ public class Wordle {
                     System.out.println("Некорректная длина слова! Слово должно состоять из 5 букв!");
                     logWriter.println("CheckWordException: Некорректная длина слова! Слово должно состоять из 5 букв!");
                 } finally {
-                    game.setSteps(game.getSteps()-1);
+                    game.setSteps(game.getSteps() - 1);
                     if (game.getSteps() == 0 && game.getGameStatus().equals(GameStatus.InProgress))
                         game.setGameStatus(GameStatus.GameOver);
                 }
             }
             //вывести состояние игры и конечный результат
-            System.out.println("Игра закончена. Статус:" + game.getGameStatus()
-                    + ". Загаданное слово было: " + game.getCorrectAnswer() );
+            System.out.println("Игра закончена. Статус:" + game.getGameStatus() + ". Загаданное слово было: "
+                    + game.getCorrectAnswer());
 
         } catch (IOException e) {
             System.out.println("Ошибка с файлом логов!");
         } catch (ReadWordsFromFileException e) {
             System.out.println("ReadWordsFromFileException: Ошибка чтения файла");
         }
-
     }
-
 }

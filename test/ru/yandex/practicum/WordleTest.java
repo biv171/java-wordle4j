@@ -1,10 +1,10 @@
 package ru.yandex.practicum;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 
 public class WordleTest {
     WordleDictionary words;
@@ -41,7 +41,6 @@ public class WordleTest {
         // LowerCase
         assertEquals("камаз", filterList.get(2));
     }
-
 
     //проверьте корректность подсказок
     @Test
@@ -84,6 +83,7 @@ public class WordleTest {
             assertEquals(GameStatus.Win, game.getGameStatus());
         }
     }
+
     @Test
     public void statusMustBeGameOver() throws IOException {
         testDictionary.add("гусар");
@@ -93,7 +93,7 @@ public class WordleTest {
         game = new WordleGame(words, new PrintWriter("log.txt"));
         for (int i = 0; i < 6; i++) {
             try {
-                game.check("гакал"+i);
+                game.check("слов"+i);
                 game.setSteps(game.getSteps()-1);
             } catch (UserException.CheckLengthException e) {
                 throw new RuntimeException(e);
@@ -101,7 +101,4 @@ public class WordleTest {
         }
         assertEquals(GameStatus.GameOver, game.getGameStatus());
     }
-
-
-
-    }
+}

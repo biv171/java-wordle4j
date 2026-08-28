@@ -1,9 +1,9 @@
 package ru.yandex.practicum;
+
 import ru.yandex.practicum.UserException.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-
 
 public class WordleDictionaryLoader {
 

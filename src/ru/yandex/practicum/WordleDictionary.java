@@ -1,14 +1,13 @@
 package ru.yandex.practicum;
+
 import ru.yandex.practicum.UserException.*;
 import java.util.List;
 import java.io.*;
 import java.util.*;
 
-
 public class WordleDictionary {
     //этот класс содержит в себе список слов List<String>
     private final List<String> words;
-
 
     public WordleDictionary(List<String> words) {
         this.words = words;
@@ -41,5 +40,4 @@ public class WordleDictionary {
         }
         return filterWords;
     }
-
 }
