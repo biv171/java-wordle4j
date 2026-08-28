@@ -10,7 +10,7 @@ public class WordleDictionaryLoader {
     private final PrintWriter logWriter;
     private final List<String> wordsDictionary = new ArrayList<>();
 
-    public WordleDictionaryLoader (PrintWriter logWriter) {
+    public WordleDictionaryLoader(PrintWriter logWriter) {
         this.logWriter = logWriter;
     }
 
@@ -29,9 +29,7 @@ public class WordleDictionaryLoader {
             logWriter.println("FileNotFoundException: ФАйл не найден");
             throw new FileNotFoundException();
         }
-
         //на выходе должен быть класс WordleDictionary
         return new WordleDictionary(wordsDictionary);
     }
-
 }
