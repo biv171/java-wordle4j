@@ -4,7 +4,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-//этот класс содержит в себе всю рутину по работе с файлами словарей и с кодировками
+
 public class WordleDictionaryLoader {
 
     private final PrintWriter logWriter;

@@ -5,13 +5,6 @@ import java.io.PrintWriter;
 import java.util.*;
 
 
-/*
-в этом классе нужны методы, которые
-    проанализируют совпадение слова с ответом
-    предложат слово-подсказку с учётом всего, что вводил пользователь ранее
-
-не забудьте про специальные типы исключений для игровых и неигровых ошибок
- */
 public class WordleGame {
     //всё что пользователь вводил - слово
     private final String correctAnswer;
@@ -96,7 +89,7 @@ public class WordleGame {
         //Первое выявлем неподходящие слова с не используемыми буквами
         for (String word : potentialWords) {
             int deleteFlag = 0;
-            for(String badLetter : wrongLetter) {
+            for (String badLetter : wrongLetter) {
                 if (word.contains(badLetter)) {
                     deleteFlag = 1;
                     userInputWord.add(word);
@@ -120,7 +113,7 @@ public class WordleGame {
         //Выбираем случайное слово:
         Random random = new Random();
         int ind = random.nextInt(potentialWords.size());
-        return potentialWords.get(ind) ;
+        return potentialWords.get(ind);
     }
 
 }
