@@ -34,4 +34,11 @@ public class UserException extends Exception {
         }
     }
 
+    public static class EmptyDictionaryException extends Exception {
+
+        public EmptyDictionaryException(String message) {
+            super(message);
+        }
+    }
+
 }

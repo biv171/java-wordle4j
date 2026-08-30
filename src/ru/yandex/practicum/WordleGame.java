@@ -65,10 +65,12 @@ public class WordleGame {
             logWriter.println("Вы угадали! Корректное слово:" + correctAnswer);
         } else if (getSteps() == 1) {
             setGameStatus(GameStatus.GameOver);
-            System.out.println("Вы проиграли!");
             logWriter.println("Корректное слово:" + correctAnswer);
+        }  else {
+            logWriter.println("Корректное слово:" + correctAnswer
+                    + " Ваше слово:" + answer + ". Не угадали, попробуйте еще раз");
         }
-        logWriter.println("Корректное слово:" + correctAnswer + " Ваше слово:" + answer + ". Не угадали, попробуйте еще раз");
+        setSteps(getSteps() - 1);
     }
 
     public void displayHint(String answer) {
@@ -92,7 +94,7 @@ public class WordleGame {
         this.hint = hintText;
     }
 
-    public String computerHelpReturnWord() throws IOException, ComputerHelpException {
+    public String computerHelpReturnWord() throws ComputerHelpException {
         List<String> potentialWords = dictionary.getFilterWords();
 
         //Первое выявлем неподходящие слова с не используемыми буквами
@@ -118,8 +120,12 @@ public class WordleGame {
         }
         //Третье: убраем все введенные пользователем слова + не подходящие слова
         potentialWords.removeAll(userInputWord);
+        //проверка на отсутствие слов
+        if (potentialWords.isEmpty()) {
+            throw new ComputerHelpException("нет слов для автоматического отбора!");
+        }
 
-        //Выбираем случайное слово:
+            //Выбираем случайное слово:
         Random random = new Random();
         int ind = random.nextInt(potentialWords.size());
         return potentialWords.get(ind);

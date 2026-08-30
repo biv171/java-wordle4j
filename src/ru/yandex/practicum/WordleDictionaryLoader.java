@@ -16,7 +16,6 @@ public class WordleDictionaryLoader {
 
     //метод по загрузке списка слов из файла по "имени файла"
     public WordleDictionary readWordsFromFile(String filename) throws IOException {
-
         try (BufferedReader br = new BufferedReader(new FileReader(filename, StandardCharsets.UTF_8))) {
             while (br.ready()) {
                 String line = br.readLine();
@@ -27,7 +26,7 @@ public class WordleDictionaryLoader {
                 throw new ReadWordsFromFileException("Ошибка чтения файла");
         } catch (FileNotFoundException e) {
             logWriter.println("FileNotFoundException: ФАйл не найден");
-            throw new FileNotFoundException();
+            throw new FileNotFoundException("FileNotFoundException: ФАйл не найден");
         }
         //на выходе должен быть класс WordleDictionary
         return new WordleDictionary(wordsDictionary);

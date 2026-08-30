@@ -17,6 +17,10 @@ public class WordleDictionary {
         return this.filterWords(words);
     }
 
+    public List<String> getWords() {
+        return this.words;
+    }
+
     //получаем случаное слово из отфильтрованного списка
     public String getRandomWord() {
         Random random = new Random();

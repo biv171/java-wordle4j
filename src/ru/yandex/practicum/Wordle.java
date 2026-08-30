@@ -9,7 +9,7 @@ public class Wordle {
     private static final String userFileName = "words_ru.txt";
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws EmptyDictionaryException {
         //создать лог-файл
         try (PrintWriter logWriter = new PrintWriter("log.txt", "Windows-1251")) {
             logWriter.println("Начало логирования");
@@ -19,6 +19,11 @@ public class Wordle {
 
             //загрузить словарь WordleDictionary с помощью класса WordleDictionaryLoader
             WordleDictionary wordsDictionary = wordleDictionaryLoader.readWordsFromFile(userFileName);
+
+            //проверка на пустой словарь
+            if (wordsDictionary.getWords().isEmpty()) {
+                throw new EmptyDictionaryException("EmptyDictionaryException: Загружаемый файл пустой!");
+            }
 
             //затем создать игру WordleGame и передать ей словарь
             WordleGame game = new WordleGame(wordsDictionary, logWriter);
@@ -34,8 +39,9 @@ public class Wordle {
                     try {
                         text = game.computerHelpReturnWord();
                     } catch (ComputerHelpException e) {
-                        System.out.println("Ошибка random подбора слова." + e.getMessage());
-                        logWriter.println("Ошибка random подбора слова.");
+                        System.out.println("ComputerHelpException: Ошибка подбора слова, " + e.getMessage());
+                        logWriter.println("Ошибка подбора слова.");
+                        return;
                     }
                     System.out.println(text);
                 }
@@ -46,7 +52,6 @@ public class Wordle {
                     System.out.println("Некорректная длина слова! Слово должно состоять из 5 букв!");
                     logWriter.println("CheckWordException: Некорректная длина слова! Слово должно состоять из 5 букв!");
                 } finally {
-                    game.setSteps(game.getSteps() - 1);
                     if (game.getSteps() == 0 && game.getGameStatus().equals(GameStatus.InProgress))
                         game.setGameStatus(GameStatus.GameOver);
                 }

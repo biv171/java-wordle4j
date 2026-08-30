@@ -1,10 +1,13 @@
 package ru.yandex.practicum;
 
+import ru.yandex.practicum.UserException.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class WordleTest {
     WordleDictionary words;
@@ -94,11 +97,40 @@ public class WordleTest {
         for (int i = 0; i < 6; i++) {
             try {
                 game.check("слов"+i);
-                game.setSteps(game.getSteps()-1);
             } catch (UserException.CheckLengthException e) {
                 throw new RuntimeException(e);
             }
         }
         assertEquals(GameStatus.GameOver, game.getGameStatus());
+    }
+
+    //проверка: на отсутствие файла и правильный вывод исключения
+    @Test
+    public void checkExceptionWithNotExistFile() throws IOException {
+        WordleDictionaryLoader load = new WordleDictionaryLoader(new PrintWriter("log.txt"));
+
+        FileNotFoundException ex = assertThrows(FileNotFoundException.class,
+                () -> load.readWordsFromFile("file_not_exist.txt"));
+        assertEquals("FileNotFoundException: ФАйл не найден",ex.getMessage());
+    }
+
+    //проверка: при невалидной длине слова счётчик попыток не уменьшается
+    @Test
+    public void checkStepsWithDifferentLength() throws IOException {
+        testDictionary.add("рулон");
+        game = new WordleGame(words, new PrintWriter("log.txt"));
+
+       try {
+           game.check("лиса");
+           assertEquals(6, game.getSteps());
+           game.check("русак");
+           assertEquals(5, game.getSteps());
+           game.check("алгоритм");
+           assertEquals(5, game.getSteps());
+           game.check("финал");
+           assertEquals(4, game.getSteps());
+       } catch (CheckLengthException e) {
+           System.out.println("test");
+       }
     }
 }
